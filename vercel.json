@@ -1,5 +1,7 @@
-
 {
+    "rewrites": [
+      { "source": "/", "destination": "/harshitha.html" }
+    ],
     "redirects": [
       {
         "source": "/resume.pdf",
