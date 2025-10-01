@@ -4,19 +4,11 @@
       { "source": "/", "destination": "/harshitha.html" }
     ],
     "redirects": [
-      {
-        "source": "/resume.pdf",
-        "destination": "/Harshitha_Atlassian.pdf",
-        "permanent": false
-      }
+      { "source": "/resume.pdf", "destination": "/Harshitha_Atlassian.pdf", "permanent": false }
     ],
     "headers": [
-      {
-        "source": "/Harshitha_Atlassian.pdf",
-        "headers": [
-          { "key": "Cache-Control", "value": "no-store" }
-        ]
-      }
+      { "source": "/Harshitha_Atlassian.pdf", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
     ]
   }
+  
   
