@@ -13,10 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- IMPORTANT: set Tailwind to class-based dark mode -->
+  <!-- Tell the Tailwind CDN to use class-based dark mode -->
   <script>
-    tailwind = window.tailwind || {};
-    tailwind.config = { darkMode: 'class' };
+    window.tailwind = { config: { darkMode: 'class' } };
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
