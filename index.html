@@ -13,11 +13,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tell the Tailwind CDN to use class-based dark mode -->
-  <script>
-    window.tailwind = { config: { darkMode: 'class' } };
-  </script>
+  <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Force class-based dark mode (CRITICAL) -->
+  <script>
+    window.tailwind ??= {};
+    window.tailwind.config = { darkMode: 'class' };
+    // Ask Play CDN to rebuild with the new config
+    window.tailwind.refresh?.();
+  </script>
 
   <style>
     :root { --accent: 152 70% 45%; color-scheme: light dark; }
@@ -45,7 +49,6 @@
         <a href="#projects" class="px-3 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800">Projects</a>
         <a href="#education" class="px-3 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800">Education</a>
         <a href="#contact" class="px-3 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800">Contact</a>
-        <!-- Resume download -->
         <a href="Harshitha_Resume.pdf"
            download="Harshitha_Pydimalla_Resume.pdf"
            class="ml-1 px-3 py-1.5 rounded-xl bg-emerald-600 text-white hover:opacity-90">Resume</a>
@@ -100,7 +103,6 @@
     <p class="text-sm text-gray-500 dark:text-gray-400">What I use to turn ideas into working systems.</p>
 
     <div class="grid md:grid-cols-3 gap-6 mt-6">
-      <!-- Programming & Web -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Programming & Web</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -111,7 +113,6 @@
         </div>
       </div>
 
-      <!-- Software Engineering -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Software Engineering</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -128,7 +129,6 @@
         </div>
       </div>
 
-      <!-- ML & Analytics -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">ML & Analytics</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -141,7 +141,6 @@
         </div>
       </div>
 
-      <!-- NLP & LLMs -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">NLP & LLMs</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -152,7 +151,6 @@
         </div>
       </div>
 
-      <!-- MLOps & Cloud -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">MLOps & Cloud</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -163,7 +161,6 @@
         </div>
       </div>
 
-      <!-- Data & Databases -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Data & Databases</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -172,7 +169,6 @@
         </div>
       </div>
 
-      <!-- Soft Skills -->
       <div class="reveal p-5 rounded-2xl border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Soft Skills</h3>
         <div class="flex flex-wrap gap-2 text-sm">
@@ -248,7 +244,6 @@
         <p class="mt-1"><span class="font-semibold">Location:</span> Sheffield, UK</p>
       </div>
 
-      <!-- Formspree form -->
       <form id="contactForm"
             action="https://formspree.io/f/mrbylbdy"
             method="POST"
@@ -272,7 +267,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="mx-auto container px-4 py-10 text-sm text-gray-500 dark:text-gray-500">
     <div class="flex items-center justify-between">
       <p>© <span id="year"></span> Harshitha Pydimalla. All rights reserved.</p>
@@ -283,7 +277,7 @@
     </div>
   </footer>
 
-  <!-- Modal (Project quick view) -->
+  <!-- Modal -->
   <div id="modal" class="fixed inset-0 z-50 hidden place-items-center p-4">
     <div class="absolute inset-0 bg-black/60" onclick="closeModal()"></div>
     <div class="relative max-w-2xl w-full rounded-2xl p-6 bg-white border border-gray-200 dark:bg-gray-950 dark:border-gray-800">
@@ -299,7 +293,7 @@
   </div>
 
   <script>
-    // chip pills: light/dark
+    // chip pills
     document.querySelectorAll('.chip')?.forEach(el=>{
       el.className='px-3 py-1 rounded-lg bg-gray-100 border border-gray-200 text-gray-800 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-200';
     });
@@ -323,8 +317,8 @@
     });
 
     function toggleIcons(isDark){
-      document.getElementById('sunIcon').classList.toggle('hidden', !isDark); // show sun in dark mode
-      document.getElementById('moonIcon').classList.toggle('hidden', isDark); // show moon in light mode
+      document.getElementById('sunIcon').classList.toggle('hidden', !isDark);
+      document.getElementById('moonIcon').classList.toggle('hidden', isDark);
     }
 
     // Reveal on scroll
@@ -335,38 +329,22 @@
 
     // Projects
     const projects = [
-      {
-        title: 'AI-Powered Web Support for Formal Verification and Proof Assistants', 
+      { title: 'AI-Powered Web Support for Formal Verification and Proof Assistants', 
         desc: 'Web platform combining LLM and RAG with a Proof API; supports Z3 execution and tracks latency & hallucinations.',
         tags: ['LLMs','RAG','FAISS','BM25','FastAPI','Flask','Z3'],
-        demo: '#',
-        code: 'https://github.com/Harshithap37',
-        image: 'images/axiomai.jpg'
-      },
-      {
-        title: 'Web Traffic Time Series Forecasting',
+        demo: '#', code: 'https://github.com/Harshithap37', image: 'images/axiomai.jpg' },
+      { title: 'Web Traffic Time Series Forecasting',
         desc: 'SARIMA with log-transform & seasonal differencing; robust chronological splits for Wikipedia pageviews.',
         tags: ['Time Series','SARIMA','Pandas','statsmodels'],
-        demo: '#',
-        code: 'https://github.com/Harshithap37',
-        image: 'images/time-series.jpg'
-      },
-      {
-        title: 'Analysis of Physical and Mental Health Issues due to excessive screen time in youngsters',
+        demo: '#', code: 'https://github.com/Harshithap37', image: 'images/time-series.jpg' },
+      { title: 'Analysis of Physical and Mental Health Issues due to excessive screen time in youngsters',
         desc: 'Survey of 685 students; chi-square tests and Random Forest to assess risk beyond 4h/day screen time.',
         tags: ['EDA', 'Random Forest', 'Stats'],
-        demo: '#',
-        code: 'https://github.com/Harshithap37',
-        image: 'images/screen-time.jpg'
-      },
-      {
-        title: 'Face Recognition with LBPH',
+        demo: '#', code: 'https://github.com/Harshithap37', image: 'images/screen-time.jpg' },
+      { title: 'Face Recognition with LBPH',
         desc: 'OpenCV pipeline using LBPH; robust to lighting & expression variations for basic identification.',
         tags: ['OpenCV','LBPH','Python'],
-        demo: '#',
-        code: 'https://github.com/Harshithap37',
-        image: 'images/lbph.jpg'
-      }
+        demo: '#', code: 'https://github.com/Harshithap37', image: 'images/lbph.jpg' }
     ];
     const grid = document.getElementById('projectGrid');
     function renderProjects(){
@@ -405,10 +383,7 @@
       document.getElementById('modal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
-    function closeModal(){
-      document.getElementById('modal').classList.add('hidden');
-      document.body.style.overflow = '';
-    }
+    function closeModal(){ document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = ''; }
     window.closeModal = closeModal;
 
     // Contact form -> Formspree (AJAX)
@@ -417,39 +392,19 @@
       const statusEl = document.getElementById('formStatus');
       const submitBtn = form?.querySelector('button[type="submit"]');
       if (!form) return;
-
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const original = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
         try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (res.ok) {
-            form.reset();
-            statusEl.textContent = 'Thanks! Your message was sent.';
-            statusEl.className = 'text-emerald-600 dark:text-emerald-400';
-          } else {
-            const data = await res.json().catch(() => ({}));
-            const msg = data?.errors?.map(e => e.message).join(', ') || 'Oops, something went wrong.';
-            statusEl.textContent = msg;
-            statusEl.className = 'text-rose-600 dark:text-rose-400';
-          }
-        } catch {
-          statusEl.textContent = 'Network error. Please try again.';
-          statusEl.className = 'text-rose-600 dark:text-rose-400';
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = original;
-        }
+          const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }});
+          if (res.ok) { form.reset(); statusEl.textContent = 'Thanks! Your message was sent.'; statusEl.className = 'text-emerald-600 dark:text-emerald-400'; }
+          else { const data = await res.json().catch(()=>({})); const msg = data?.errors?.map(e=>e.message).join(', ') || 'Oops, something went wrong.'; statusEl.textContent = msg; statusEl.className = 'text-rose-600 dark:text-rose-400'; }
+        } catch { statusEl.textContent = 'Network error. Please try again.'; statusEl.className = 'text-rose-600 dark:text-rose-400'; }
+        finally { submitBtn.disabled = false; submitBtn.textContent = original; }
       });
     })();
 
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
