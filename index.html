@@ -294,33 +294,55 @@
   </div>
 
   <script>
+    // --- Theme handling (whole page) ---
+    (function () {
+      const root = document.documentElement;
+      const body = document.body;
+      const btn  = document.getElementById('themeToggle');
+      const sun  = document.getElementById('sunIcon');
+      const moon = document.getElementById('moonIcon');
+
+      function applyTheme(mode){
+        const isDark = mode === 'dark';
+
+        // Tailwind dark variant
+        root.classList.toggle('dark', isDark);
+
+        // Ensure background/text flip even if cached classes linger
+        body.classList.toggle('bg-gray-950', isDark);
+        body.classList.toggle('text-gray-100', isDark);
+        body.classList.toggle('bg-white', !isDark);
+        body.classList.toggle('text-gray-900', !isDark);
+
+        // Icons + ARIA
+        sun.classList.toggle('hidden', !isDark);  // show sun when dark
+        moon.classList.toggle('hidden', isDark);  // show moon when light
+        btn?.setAttribute('aria-pressed', String(isDark));
+      }
+
+      function setTheme(mode){
+        localStorage.setItem('theme', mode);
+        applyTheme(mode);
+      }
+
+      // Bootstrap: saved pref or system
+      let pref = localStorage.getItem('theme');
+      if (!pref) {
+        pref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      applyTheme(pref);
+
+      // Toggle on click
+      btn?.addEventListener('click', () => {
+        const next = root.classList.contains('dark') ? 'light' : 'dark';
+        setTheme(next);
+      });
+    })();
+
     // chip pills: light/dark
     document.querySelectorAll('.chip')?.forEach(el=>{
       el.className='px-3 py-1 rounded-lg bg-gray-100 border border-gray-200 text-gray-800 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-200';
     });
-
-    // Theme bootstrap: saved pref or system
-    let pref = localStorage.getItem('theme');
-    if (!pref) {
-      pref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      localStorage.setItem('theme', pref);
-    }
-    document.documentElement.classList.toggle('dark', pref === 'dark');
-    toggleIcons(pref === 'dark');
-    document.getElementById('themeToggle').setAttribute('aria-pressed', pref === 'dark');
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const nowDark = !document.documentElement.classList.contains('dark');
-      document.documentElement.classList.toggle('dark', nowDark);
-      localStorage.setItem('theme', nowDark ? 'dark' : 'light');
-      toggleIcons(nowDark);
-      document.getElementById('themeToggle').setAttribute('aria-pressed', nowDark);
-    });
-
-    function toggleIcons(isDark){
-      document.getElementById('sunIcon').classList.toggle('hidden', !isDark); // show sun in dark mode
-      document.getElementById('moonIcon').classList.toggle('hidden', isDark); // show moon in light mode
-    }
 
     // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
@@ -363,6 +385,7 @@
         image: 'images/lbph.jpg'
       }
     ];
+
     const grid = document.getElementById('projectGrid');
     function renderProjects(){
       grid.innerHTML = '';
