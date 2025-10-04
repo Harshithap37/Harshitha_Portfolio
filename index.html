@@ -50,8 +50,8 @@
         <p class="mt-3 text-gray-300 max-w-xl">Transforming data & models into scalable, responsible AI products. Python · PyTorch · HF Transformers · FastAPI/Flask · Azure/Databricks · RAG.</p>
       </div>
       <div class="flex md:justify-end justify-center">
-        <!-- 🔽 your profile image (place file at /images/profile.jpg) -->
-        <img src="/images/Harshitha.jpeg" alt="Harshitha Pydimalla"
+        <!-- use RELATIVE path for GitHub Pages -->
+        <img src="images/Harshitha.jpeg" alt="Harshitha Pydimalla"
              class="w-64 h-64 md:w-72 md:h-72 object-cover rounded-full ring-4 ring-emerald-400 shadow-2xl" />
       </div>
     </div>
@@ -253,7 +253,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // --- Projects data (use your own thumbnails in /images) ---
+    // --- Projects data (use relative thumbnails in /images) ---
     const projects = [
       {
         title: 'AxiomAI — Formal Verification Assistant',
@@ -261,7 +261,7 @@
         tags: ['LLMs','RAG','FastAPI','Z3'],
         demo: '#',
         code: 'https://github.com/Harshithap37',
-        image: '/images/axiomai.jpg'
+        image: 'images/axiomai.jpg'      // changed to relative
       },
       {
         title: 'Web Traffic Time Series Forecasting',
@@ -269,7 +269,7 @@
         tags: ['Time Series','SARIMA','Python'],
         demo: '#',
         code: 'https://github.com/Harshithap37',
-        image: '/images/time-series.jpg'
+        image: 'images/time-series.jpg'  // changed to relative
       },
       {
         title: 'Health Impact of Screen Time — ML Study',
@@ -277,7 +277,7 @@
         tags: ['Random Forest','Stats','EDA'],
         demo: '#',
         code: 'https://github.com/Harshithap37',
-        image: '/images/screen-time.jpg'
+        image: 'images/screen-time.jpg'  // changed to relative
       },
       {
         title: 'Face Recognition with LBPH',
@@ -285,7 +285,7 @@
         tags: ['OpenCV','LBPH','Python'],
         demo: '#',
         code: 'https://github.com/Harshithap37',
-        image: '/images/lbph.jpg'
+        image: 'images/lbph.jpg'         // changed to relative
       }
     ];
     const grid = document.getElementById('projectGrid');
@@ -326,16 +326,6 @@
       document.body.style.overflow = '';
     }
     window.closeModal = closeModal;
-
-    // --- Contact form to mailto ---
-    document.getElementById('contactForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const name = encodeURIComponent(fd.get('name'));
-      const email = encodeURIComponent(fd.get('email'));
-      const msg = encodeURIComponent(fd.get('message'));
-      window.location.href = `mailto:harshithacharis3@gmail.com?subject=Portfolio%20Contact%20from%20${name}&body=From:%20${name}%20(%20${email}%20)%0D%0A%0D%0A${msg}`;
-    });
 
     // --- Footer year ---
     document.getElementById('year').textContent = new Date().getFullYear();
